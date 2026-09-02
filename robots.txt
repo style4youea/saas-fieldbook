@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://style4youea.github.io/saas-fieldbook/sitemap.xml
