@@ -42,17 +42,14 @@
 
 <h2 id="tool">4. Evaluate Geo Targetly against the worksheet</h2>
 <p>Geo Targetly’s <a href="https://geotargetly.com/geo-redirect">official Geo Redirect page</a> describes automatic and confirmation-based routing, selected-page rules, exclusions, manual switchers, custom page mapping, query-string controls and a built-in Test Mode for simulating locations. These are vendor-described capabilities, not results from a hands-on trial for this article.</p>
-<p>Those features make it a candidate when your existing platform cannot express the routing behavior you need. Evaluate the actual gaps first. If the native country selector already handles your markets and customer journey well, another routing layer may add maintenance without solving a problem.</p>
+
 <p>During an evaluation, ask the person configuring the tool to demonstrate your hardest case: an unavailable product, a saved preference that differs from detected location, or a page that must never redirect. A generic demonstration of the homepage is insufficient evidence.</p>
 <p>Check whether each intended exclusion and mapping is supported in your setup. Confirm which settings apply across domains, how preference storage behaves and what happens when other apps also suggest a market. Keep one clear owner for regional routing so two integrations do not compete.</p>
 <p><a class="button primary" href="https://geotargetly.com/?red=evijab" target="_blank" rel="sponsored noopener">Explore Geo Targetly →</a></p>
 <p><small>Affiliate link: SaaS Fieldbook may earn a commission from qualifying purchases at no extra cost to you. Confirm current features, traffic allowances and pricing before buying.</small></p>
 
-<h2 id="search">5. Keep regional pages discoverable</h2>
-<p>Google recommends separate URLs for language versions and explicit links that let visitors switch. Its guidance warns that automatic language redirects can prevent users and search engines from accessing versions, and that location-based adaptation may leave variations undiscovered. See <a href="https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites">Google Search Central’s international site guidance</a>.</p>
-<p>Include a separate discovery check in the launch plan: open each regional URL directly, confirm that ordinary navigation links expose the alternatives and have the person responsible for SEO review the language and regional annotations. A location simulation showing the right page is not evidence that the page is indexed.</p>
-<p>Keep the scope clear. A routing tool helps select a destination; it does not make incorrect product information accurate or guarantee search visibility. Check those outcomes in their own systems.</p>
-
+<h2 id="search">5. Check direct access to each regional page</h2>
+<p>Open each regional URL directly, follow the ordinary language and market links, and record whether the intended page stays accessible. Have the person responsible for SEO review regional annotations separately. The <a href="/guides/country-selector-vs-geo-redirect/#seo">regional site architecture section</a> explains Google's discovery guidance; a successful routing test is not evidence of indexing.</p>
 <h2 id="launch">6. Launch narrowly and prepare the rollback</h2>
 <p>Start with a limited, agreed set of pages and markets. Save the previous configuration and identify the specific rule to disable if something fails. Ensure the underlying store remains usable without the suggestion before enabling it for customers.</p>
 <p>Choose an observation period your team can actually cover. Record complaints about wrong-market routing, failed destination mappings and any reproduced cart or checkout interruption. If you measure suggestion acceptance, keep that separate from completed purchases: accepting a country switch does not establish that the change increased sales.</p>
