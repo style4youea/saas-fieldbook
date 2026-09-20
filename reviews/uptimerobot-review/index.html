@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Our hands-on UptimeRobot review covers a controlled keyword-monitoring incident, detection and recovery timing, pricing, drawbacks, alternatives and verdict.">
+  <meta property="og:title" content="UptimeRobot Review 2026: Our Hands-On Keyword Monitoring Test">
+  <meta property="og:description" content="See what happened in our controlled UptimeRobot keyword-monitoring test, including incident timing, response times, pricing and limitations.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://saasfieldbook.com/reviews/uptimerobot-review/">
+  <title>UptimeRobot Review 2026: Hands-On Test, Pricing & Verdict | SaaS Fieldbook</title>
+  <link rel="canonical" href="https://saasfieldbook.com/reviews/uptimerobot-review/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../styles.css?v=20260920-uptimerobot">
+  <style>.prose table{display:block;width:100%;overflow-x:auto;border-collapse:collapse;margin:24px 0}.prose th,.prose td{padding:12px 14px;border:1px solid var(--line);text-align:left;vertical-align:top}.prose thead{background:var(--accent-soft)}.prose blockquote{margin:24px 0;padding:18px 20px;border-left:4px solid var(--accent);background:var(--accent-soft)}.prose .review-cta{margin:28px 0;padding:22px;border:1px solid var(--line);border-radius:12px;background:var(--accent-soft)}.prose .button.primary{color:#fff}</style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Review","name":"UptimeRobot Review 2026: Our Hands-On Keyword Monitoring Test","datePublished":"2026-09-20","dateModified":"2026-09-20","author":{"@type":"Person","name":"Evija Āboliņa"},"publisher":{"@type":"Organization","name":"SaaS Fieldbook"},"itemReviewed":{"@type":"SoftwareApplication","name":"UptimeRobot","applicationCategory":"MonitoringApplication"},"reviewRating":{"@type":"Rating","ratingValue":"4.3","bestRating":"5"},"mainEntityOfPage":"https://saasfieldbook.com/reviews/uptimerobot-review/"}</script>
+  <script defer src="/analytics.js"></script>
+</head>
+<body>
+<header class="site-header"><div class="container nav-wrap"><a class="brand" href="../../">SaaS <span>Fieldbook</span></a><nav aria-label="Primary navigation"><a href="../">Reviews</a><a href="../../comparisons/">Comparisons</a><a href="../../guides/">Guides</a><a href="../../about/">About</a><a href="../../contact/">Contact</a></nav></div></header>
+<main><article>
+<section class="page-hero"><div class="container"><p class="eyebrow">Hands-on review · September 20, 2026</p><h1>UptimeRobot Review 2026: Our Hands-On Keyword Monitoring Test</h1><p>Incident timing, setup experience, pricing, drawbacks and the evidence behind our verdict.</p><div class="meta"><span>By Evija Āboliņa</span><span>•</span><span>Controlled keyword test</span><span>•</span><span>Contains affiliate links</span></div></div></section>
+<div class="container prose">
+<p><strong>Verdict:</strong> UptimeRobot is an easy recommendation for
+individuals and small businesses that want straightforward external
+website monitoring without installing or maintaining their own
+monitoring server. Its free plan is unusually practical: it supports up
+to 50 monitors and includes five-minute checks, keyword monitoring and
+basic status pages. The main trade-off is detection speed. A five-minute
+interval can be too slow for a revenue-critical website, while faster
+checks and several operational features require a paid plan.</p>
+<p><strong>Our rating: 4.3/5</strong></p>
+<blockquote>
+<p><strong>Affiliate disclosure:</strong> This article contains an
+affiliate link. If you purchase UptimeRobot through that link, SaaS
+Fieldbook may earn a commission at no additional cost to you. Our
+verdict is based on our own controlled test and independent research.
+The affiliate relationship did not affect our findings.</p>
+</blockquote>
+<div class="review-cta"><p><a class="button primary" href="https://uptimerobot.com/?red=evijab" target="_blank" rel="sponsored noopener">Try UptimeRobot →</a></p><p><small>Affiliate link. SaaS Fieldbook may earn a commission from a qualifying purchase at no extra cost to you.</small></p></div>
+<h2 id="quick-answer">Quick answer</h2>
+<p>UptimeRobot is a hosted uptime monitoring service. It checks
+websites, APIs and other online services from outside your own
+infrastructure and records an incident when a check fails. Depending on
+the monitor type, it can detect an unreachable page, a missing keyword,
+a failed port or ping, a cron job that did not run, DNS problems and
+other conditions.</p>
+<p>We tested its keyword monitor against a controlled page on
+SaaSFieldbook.com. After replacing the expected marker with a
+deliberately nonexistent one, UptimeRobot opened an incident one minute
+later. We then restored the correct marker. The incident was marked as
+resolved after a total duration of 58 seconds. The dashboard also
+preserved the root cause and the response body used for the failed
+check.</p>
+<p>That result was better than the free plan's nominal five-minute
+interval, but it should not be interpreted as a guaranteed one-minute
+detection time. Saving the changed monitor configuration appears to have
+triggered an immediate check. For normal monitoring, free users should
+plan around the documented five-minute interval.</p>
+<h2 id="what-we-tested">What we tested</h2>
+<p>We did not take the production website offline. Instead, we created
+an isolated test endpoint that contained the marker:</p>
+<p><code>SFB_MONITOR_READY</code></p>
+<p>The page clearly stated that it was a controlled monitoring endpoint
+and that its state did not represent the availability of the main SaaS
+Fieldbook website.</p>
+<p>We configured UptimeRobot to:</p>
+<ol type="1">
+<li>request the controlled HTTPS page;</li>
+<li>search the returned HTML for the expected marker;</li>
+<li>start an incident when the marker was absent;</li>
+<li>send alerts without an artificial delay; and</li>
+<li>check from UptimeRobot's automatically selected location.</li>
+</ol>
+<p>We then changed the expected keyword in the monitor to
+<code>SFB_MONITOR_MISSING</code>, a string that was not present on the
+page. Once UptimeRobot registered the incident, we restored the correct
+marker.</p>
+<h2 id="our-test-results">Our test results</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Test event</th>
+<th style="text-align: right;">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Monitor configuration saved with nonexistent marker</td>
+<td style="text-align: right;">11:22:51 GMT+3</td>
+</tr>
+<tr class="even">
+<td>Incident started</td>
+<td style="text-align: right;">11:23:51 GMT+3</td>
+</tr>
+<tr class="odd">
+<td>Detection time after configuration change</td>
+<td style="text-align: right;">1 minute</td>
+</tr>
+<tr class="even">
+<td>Correct marker restored</td>
+<td style="text-align: right;">11:24:36 GMT+3</td>
+</tr>
+<tr class="odd">
+<td>Recorded incident duration</td>
+<td style="text-align: right;">58 seconds</td>
+</tr>
+<tr class="even">
+<td>Approximate recovery after restoration</td>
+<td style="text-align: right;">13 seconds</td>
+</tr>
+<tr class="odd">
+<td>Observed response time</td>
+<td style="text-align: right;">97–139 ms</td>
+</tr>
+<tr class="even">
+<td>Root cause recorded</td>
+<td style="text-align: right;">Keyword has not been found</td>
+</tr>
+</tbody>
+</table>
+<p>The incident view was more useful than a simple red status indicator.
+It showed the affected monitor, start time, duration, monitoring region,
+requested URL and the returned page body. That makes it easier to
+confirm whether the problem was a network failure or a content condition
+that did not match.</p>
+<p>We also found an earlier controlled incident in the same account from
+September 3, 2026. That incident lasted 5 minutes and 5 seconds.
+Together, the two tests illustrate an important point: a free monitor
+may sometimes react faster after a configuration change, but its normal
+operating cadence is still five minutes.</p>
+<h2 id="setup-experience">Setup experience</h2>
+<p>The basic workflow is approachable even if you are not a developer.
+To create a keyword monitor, you provide the URL, give the monitor a
+recognizable name, enter the keyword and choose whether an incident
+should start when the keyword exists or when it does not exist.</p>
+<p>The interface explains the monitoring interval and shows paid
+features in context. Once the monitor has data, its detail page combines
+current status, uptime history, incidents and response-time information.
+We liked that the incident record included the actual response used in
+the failed check.</p>
+<p>There are a few interface details that could be clearer. Settings are
+divided across monitor details, integrations, team access and
+maintenance sections. New users may also confuse the ability to send a
+test notification with proof that a real outage workflow has been
+validated. A controlled incident, like the one in this review, provides
+stronger evidence.</p>
+<h2 id="uptimerobot-pricing-in-september-2026">UptimeRobot pricing in
+September 2026</h2>
+<p>Pricing was checked against UptimeRobot's official pricing page on
+September 20, 2026. Displayed prices below use annual billing where
+UptimeRobot presents a discounted monthly equivalent.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Plan</th>
+<th style="text-align: right;">Displayed price</th>
+<th style="text-align: right;">Included monitors</th>
+<th style="text-align: right;">Fastest listed interval</th>
+<th>Best fit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Free</td>
+<td style="text-align: right;">$0/month</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">5 minutes</td>
+<td>Personal sites, side projects and basic small-business
+monitoring</td>
+</tr>
+<tr class="even">
+<td>Solo</td>
+<td style="text-align: right;"><span
+class="math inline">12/<em>m</em><em>o</em><em>n</em><em>t</em><em>h</em><em>b</em><em>i</em><em>l</em><em>l</em><em>e</em><em>d</em><em>a</em><em>n</em><em>n</em><em>u</em><em>a</em><em>l</em><em>l</em><em>y</em>(</span>144/year)</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">60 seconds</td>
+<td>Freelancers and small sites needing faster checks</td>
+</tr>
+<tr class="odd">
+<td>Team</td>
+<td style="text-align: right;"><span
+class="math inline">39/<em>m</em><em>o</em><em>n</em><em>t</em><em>h</em><em>b</em><em>i</em><em>l</em><em>l</em><em>e</em><em>d</em><em>a</em><em>n</em><em>n</em><em>u</em><em>a</em><em>l</em><em>l</em><em>y</em>(</span>468/year)</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">30 seconds</td>
+<td>Small teams running production services</td>
+</tr>
+<tr class="even">
+<td>Scale</td>
+<td style="text-align: right;"><span
+class="math inline">79/<em>m</em><em>o</em><em>n</em><em>t</em><em>h</em><em>b</em><em>i</em><em>l</em><em>l</em><em>e</em><em>d</em><em>a</em><em>n</em><em>n</em><em>u</em><em>a</em><em>l</em><em>l</em><em>y</em>(</span>948/year)</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">15 seconds</td>
+<td>Higher-volume self-service monitoring</td>
+</tr>
+<tr class="odd">
+<td>Enterprise</td>
+<td style="text-align: right;">Custom</td>
+<td style="text-align: right;">Custom</td>
+<td style="text-align: right;">Custom/faster</td>
+<td>Compliance, procurement and large deployments</td>
+</tr>
+</tbody>
+</table>
+<p>The Free plan includes HTTP, port, ping, keyword, API, UDP and DNS
+monitoring, among other listed capabilities, but it restricts the
+integration selection and offers basic status pages. Solo adds faster
+checks, broader monitoring options, more status-page capability and
+longer data retention. Team adds shared access, more monitors,
+white-label status pages and integrations such as webhooks, Zapier and
+PagerDuty. Always check the live pricing page because plan packaging can
+change.</p>
+<h2 id="what-we-liked">What we liked</h2>
+<h3 id="the-free-plan-is-genuinely-usable">The free plan is genuinely
+usable</h3>
+<p>Fifty monitors is enough for several small websites, landing pages,
+APIs or important third-party dependencies. A free plan that only allows
+one or two checks is useful for evaluation; UptimeRobot's allowance can
+support a real lightweight monitoring setup.</p>
+<h3 id="keyword-monitoring-catches-more-than-complete-outages">Keyword
+monitoring catches more than complete outages</h3>
+<p>A page can return HTTP 200 while displaying an error, losing a
+critical element or serving incomplete content. Keyword monitoring lets
+you check for an expected marker rather than treating every successful
+HTTP response as healthy.</p>
+<h3 id="incident-evidence-is-practical">Incident evidence is
+practical</h3>
+<p>Our incident record preserved the root cause, region, requested URL
+and returned page content. That evidence helps distinguish a real
+website problem from an incorrect monitor configuration.</p>
+<h3 id="hosted-monitoring-avoids-a-common-blind-spot">Hosted monitoring
+avoids a common blind spot</h3>
+<p>Because UptimeRobot runs outside the monitored website's
+infrastructure, it can still report a failure when that website or
+server goes down. A self-hosted monitor needs separate infrastructure
+and maintenance to avoid failing together with the service it
+watches.</p>
+<h2 id="what-could-be-better">What could be better</h2>
+<h3 id="five-minute-free-checks-can-be-too-slow">Five-minute free checks
+can be too slow</h3>
+<p>A five-minute interval may be acceptable for a brochure site or
+personal project. It is much less comfortable for checkout pages, login
+systems or customer-facing SaaS products where every minute matters.</p>
+<h3 id="the-dashboard-promotes-upgrades-frequently">The dashboard
+promotes upgrades frequently</h3>
+<p>Paid features such as faster checks, advanced status pages, team
+access and some integrations are visible throughout the interface. The
+product remains usable for free, but the upgrade prompts are hard to
+miss.</p>
+<h3 id="it-is-monitoring-not-full-observability">It is monitoring, not
+full observability</h3>
+<p>UptimeRobot can tell you that an endpoint failed or a keyword
+disappeared. It is not a replacement for application logs, distributed
+traces, infrastructure metrics or deep root-cause analysis. Larger
+engineering teams may use it alongside an observability platform rather
+than instead of one.</p>
+<h3 id="alert-delivery-still-needs-its-own-test">Alert delivery still
+needs its own test</h3>
+<p>Attaching an email address is not enough. Teams should send a test
+notification, run a controlled incident and confirm that both failure
+and recovery messages arrive in the channel someone actually
+watches.</p>
+<h2 id="who-should-choose-uptimerobot">Who should choose
+UptimeRobot?</h2>
+<p>UptimeRobot is a strong fit for:</p>
+<ul>
+<li>freelancers and small agencies monitoring client websites;</li>
+<li>ecommerce operators watching storefronts, checkout pages or
+integrations;</li>
+<li>small SaaS teams that need external endpoint checks and simple
+status pages;</li>
+<li>site owners who want email alerts without maintaining a monitoring
+server; and</li>
+<li>technical teams that need a lightweight external layer alongside
+their existing logs and metrics.</li>
+</ul>
+<p>Consider a broader platform if you need logs, traces, on-call
+scheduling and incident response in one system. Consider a self-hosted
+alternative if full control and avoiding SaaS fees matter more than
+setup time and maintenance.</p>
+<h2 id="uptimerobot-alternatives">UptimeRobot alternatives</h2>
+<h3 id="better-stack">Better Stack</h3>
+<p>Better Stack is the more natural option when monitoring needs to
+connect with incident management, on-call workflows, logs and a broader
+observability stack. UptimeRobot is simpler when the main job is
+external uptime checking.</p>
+<h3 id="pingdom">Pingdom</h3>
+<p>Pingdom is worth considering for teams focused on synthetic
+monitoring and web-performance analysis. It does not provide the same
+low-friction free entry point as UptimeRobot.</p>
+<h3 id="uptime-kuma">Uptime Kuma</h3>
+<p>Uptime Kuma is free and open source, but you must host and maintain
+it. It offers more control, while UptimeRobot avoids the operational
+work and the risk of hosting the monitor on the same infrastructure it
+is supposed to watch.</p>
+<h3 id="site24x7">Site24x7</h3>
+<p>Site24x7 covers a wider IT monitoring scope. That breadth may suit
+organizations managing applications, servers and infrastructure, but it
+also makes the product more complex than a focused uptime service.</p>
+<h2 id="our-verdict">Our verdict</h2>
+<p>UptimeRobot succeeds because the core workflow is simple: select a
+target, choose a failure condition and decide who should be alerted. In
+our controlled keyword test, it correctly detected a missing marker,
+stored useful diagnostic evidence and resolved the incident when the
+expected content returned.</p>
+<p>The free plan is a sensible starting point for a small website or a
+low-risk service. For production systems where a five-minute detection
+window is unacceptable, Solo or a higher plan is the more realistic
+choice. Teams that need logs and traces should treat UptimeRobot as an
+external availability layer, not as their entire observability
+stack.</p>
+<p><strong>Bottom line:</strong> start with the Free plan, run a
+controlled incident of your own and upgrade only when faster detection
+or team workflows justify the cost.</p>
+<div class="review-cta"><p><a class="button primary" href="https://uptimerobot.com/?red=evijab" target="_blank" rel="sponsored noopener">Start monitoring with UptimeRobot →</a></p><p><small>Affiliate link. SaaS Fieldbook may earn a commission from a qualifying purchase at no extra cost to you.</small></p></div>
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<h3 id="is-uptimerobot-really-free">Is UptimeRobot really free?</h3>
+<p>Yes. The Free plan was listed at $0 per month with up to 50 monitors
+and five-minute checks when we reviewed it on September 20, 2026. No
+credit card was required for the free account.</p>
+<h3 id="how-quickly-does-uptimerobot-detect-downtime">How quickly does
+UptimeRobot detect downtime?</h3>
+<p>The normal interval depends on the plan. The Free plan lists
+five-minute checks, Solo lists 60-second checks, Team lists 30-second
+checks and Scale lists 15-second checks. Our controlled
+configuration-change test triggered an incident after one minute, but
+that should not be treated as the guaranteed Free-plan interval.</p>
+<h3 id="can-uptimerobot-monitor-page-content">Can UptimeRobot monitor
+page content?</h3>
+<p>Yes. A keyword monitor can start an incident when specified text is
+missing or when unwanted text appears. This can catch a broken page that
+still returns a successful HTTP status.</p>
+<h3 id="does-uptimerobot-monitor-ssl-certificates-and-domains">Does
+UptimeRobot monitor SSL certificates and domains?</h3>
+<p>UptimeRobot lists SSL and domain-expiration monitoring among its
+capabilities. Packaging and limits differ by plan, so verify the current
+comparison table before subscribing.</p>
+<h3 id="is-uptimerobot-enough-for-devops-monitoring">Is UptimeRobot
+enough for DevOps monitoring?</h3>
+<p>It is useful for external uptime and endpoint checks, but it does not
+replace logs, traces and infrastructure metrics. Many teams will use it
+alongside a broader observability platform.</p>
+<h2 id="test-methodology-and-sources">Test methodology and sources</h2>
+<p>Hands-on test completed September 20, 2026 using a controlled SaaS
+Fieldbook endpoint and an UptimeRobot keyword monitor. Product
+capabilities and pricing were checked against UptimeRobot's official
+website, pricing page, help content and terms. Affiliate terms were
+checked against the UptimeRobot program listing in Reditus and
+UptimeRobot's public affiliate information.</p>
+<p>Official sources:</p>
+<ul>
+<li><a
+href="https://uptimerobot.com/pricing/">https://uptimerobot.com/pricing/</a></li>
+<li><a
+href="https://uptimerobot.com/help/">https://uptimerobot.com/help/</a></li>
+<li><a
+href="https://uptimerobot.com/affiliate/">https://uptimerobot.com/affiliate/</a></li>
+<li><a
+href="https://uptimerobot.com/terms/">https://uptimerobot.com/terms/</a></li>
+</ul>
+<p class="source-note">By Evija Āboliņa · Published September 20, 2026. <a href="/about/">Our editorial approach</a>. Related: <a href="/guides/website-uptime-monitoring-small-business/">website uptime monitoring for small businesses</a>.</p>
+</div></article></main>
+<footer class="site-footer"><div class="container footer-grid"><div><strong>SaaS Fieldbook</strong><p>Practical software research for better business decisions.</p></div><div class="footer-links"><a href="../../about/">About</a><a href="../../contact/">Contact</a><a href="../../disclosure/">Disclosure</a><a href="../../privacy/">Privacy</a></div></div><div class="container copyright">© 2026 SaaS Fieldbook.</div></footer>
+</body>
+</html>
